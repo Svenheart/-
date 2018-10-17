@@ -1,5 +1,7 @@
 package com.lt5.dishcollocation.util;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @program:com.lt5.foodmanage.util
  * @description:
@@ -7,6 +9,7 @@ package com.lt5.dishcollocation.util;
  * @author:SanCheng
  * @create:2018-10-16
  **/
+@Component
 public class Msg {
 	private int status;
 	private String errorTip;

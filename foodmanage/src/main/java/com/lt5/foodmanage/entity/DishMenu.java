@@ -10,13 +10,13 @@ package com.lt5.foodmanage.entity;
 public class DishMenu {
 	private int dishId;
 	private String dishName;
-	private double dishPrice;
+	private int dishPrice;
 	private String dishImage;
 	private String cuisine;
 	private int storeId;
 	private int newDishId;
 
-	public DishMenu(int dishId, String dishName, double dishPrice, String dishImage, String cuisine, int storeId, int newDishId) {
+	public DishMenu(int dishId, String dishName, int dishPrice, String dishImage, String cuisine, int storeId, int newDishId) {
 		this.dishId = dishId;
 		this.dishName = dishName;
 		this.dishPrice = dishPrice;
@@ -26,7 +26,7 @@ public class DishMenu {
 		this.newDishId = newDishId;
 	}
 
-	public DishMenu(int dishId, String dishName, double dishPrice, String dishImage, String cuisine, int storeId) {
+	public DishMenu(int dishId, String dishName, int dishPrice, String dishImage, String cuisine, int storeId) {
 		this.dishId = dishId;
 		this.dishName = dishName;
 		this.dishPrice = dishPrice;
@@ -35,7 +35,7 @@ public class DishMenu {
 		this.storeId = storeId;
 	}
 
-	public DishMenu(String dishName, double dishPrice, String cuisine, int storeId) {
+	public DishMenu(String dishName, int dishPrice, String cuisine, int storeId) {
 		this.dishName = dishName;
 		this.dishPrice = dishPrice;
 		this.cuisine = cuisine;
@@ -74,11 +74,11 @@ public class DishMenu {
 		this.dishName = dishName;
 	}
 
-	public double getDishPrice() {
+	public int getDishPrice() {
 		return dishPrice;
 	}
 
-	public void setDishPrice(double dishPrice) {
+	public void setDishPrice(int dishPrice) {
 		this.dishPrice = dishPrice;
 	}
 
