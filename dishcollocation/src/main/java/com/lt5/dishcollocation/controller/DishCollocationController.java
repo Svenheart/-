@@ -26,10 +26,18 @@ public class DishCollocationController {
 		msg=dishCollocationService.addNewMenu(dateMenuArrayList);
 		return msg;
 	}
+
 	@RequestMapping(method = RequestMethod.POST,value = "/menuDays")
 	@ResponseBody
 	public Msg setMenuDays(@RequestBody MenuSet menuSet){
 		msg=dishCollocationService.setMenuDays(menuSet);
+		return msg;
+	}
+
+	@RequestMapping(method = RequestMethod.GET,value = "/menuDays")
+	@ResponseBody
+	public Msg getMenuDate(@RequestParam("storeId")int storeId){
+		msg=dishCollocationService.getMenuDate(storeId);
 		return msg;
 	}
 }

@@ -23,4 +23,7 @@ public interface DishCollocationDao {
 	@Select(value = "insert into dreamweaver.t_setting (store_id,days,setting_time)" +
 			"values(#{storeId},#{days},#{settingTime})")
 	void setMenuDays(MenuSet menuSet);
+
+	@Select(value = "select * from dreamweaver.t_setting where store_id=(#{storeId})")
+	MenuSet getMenuDays(int storeId);
 }

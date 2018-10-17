@@ -16,4 +16,5 @@ import java.util.ArrayList;
 public interface DishCollocationService {
 	Msg addNewMenu(ArrayList<DateMenu> dateMenu);
 	Msg setMenuDays(MenuSet menuSet);
+	Msg getMenuDate(int storeId);
 }
