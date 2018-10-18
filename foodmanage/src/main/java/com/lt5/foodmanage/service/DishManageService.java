@@ -13,6 +13,7 @@ import com.lt5.foodmanage.util.Msg;
 public interface DishManageService {
 	Msg addDish(DishMenu dishMenu);
 	Msg deleteDish(DishMenu dishMenu);
-	Msg queryDish(int storeId );
+	Msg listDish(int storeId,int pageNum,int pageSize);
+	Msg listSomeDish(int storeId,String condition,int pageNum,int pageSize);
 	Msg updateDish(DishMenu dishMenu);
 }

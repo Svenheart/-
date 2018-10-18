@@ -1,5 +1,6 @@
 package com.lt5.foodmanage.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.lt5.foodmanage.entity.DishMenu;
 import com.lt5.foodmanage.service.DishManageService;
 import com.lt5.foodmanage.util.Msg;
@@ -23,8 +24,17 @@ public class DishManageController {
 
 	@RequestMapping(method = RequestMethod.GET,value = "/dish")
 	@ResponseBody
-	public Msg queryDish(@RequestParam("storeId")int storeId){
-		msg=dishManageService.queryDish(storeId);
+	public Msg listDish(@RequestParam int storeId,@RequestParam int pageNum,
+	                     @RequestParam int pageSize){
+		msg=dishManageService.listDish(storeId,pageNum,pageSize);
+		return msg;
+	}
+
+	@RequestMapping(method = RequestMethod.GET,value = "/someDish")
+	@ResponseBody
+	public Msg listDish(@RequestParam int storeId,@RequestParam String condition,@RequestParam int pageNum,
+	                    @RequestParam int pageSize){
+		msg=dishManageService.listSomeDish(storeId,condition,pageNum,pageSize);
 		return msg;
 	}
 
@@ -44,7 +54,7 @@ public class DishManageController {
 
 	@RequestMapping(method = RequestMethod.DELETE,value = "/dish")
 	@ResponseBody
-	public Msg queryDish(@RequestBody DishMenu dishMenu){
+	public Msg listDish(@RequestBody DishMenu dishMenu){
 		msg=dishManageService.deleteDish(dishMenu);
 		return msg;
 	}

@@ -2,9 +2,12 @@ package com.lt5.foodmanage.dao;
 
 import com.lt5.foodmanage.entity.DishMenu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
+
+import java.util.ArrayList;
+
 
 /**
  * @program:com.lt5.foodmanage.dao
@@ -18,8 +21,14 @@ public interface DishManageDao {
 	/**
 	 * 查询菜品
 	 */
-	@Select(value = "select * from dreamweaver.t_cookbook where store_id=#{storeId};")
-	List<DishMenu> queryDish(int storeId);
+	@Select(value = "select * from dreamweaver.t_cookbook where store_id=#{storeId}")
+	ArrayList<DishMenu> listDish(int storeId);
+
+	/**
+	 * 按条件查询菜品
+	 */
+	@Select(value = "SELECT * FROM dreamweaver.t_cookbook where (store_id=#{storeId} and dish_name like #{condition}) or (store_id=#{storeId} and cuisine like #{condition})")
+	ArrayList<DishMenu> listSomeDish(@Param(value = "storeId") int storeId,@Param(value = "condition") String condition);
 
 	/**
 	 * 增加菜品

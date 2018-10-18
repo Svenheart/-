@@ -51,11 +51,11 @@ public class DishCollocationServiceImp implements DishCollocationService {
 					dishCollocationDao.addNewMenu(dateMenuArrayList.get(j));
 				}
 			}
-			msg.setDataBody("保存菜谱成功");
+			msg.setimformation("保存菜谱成功");
 		}catch (Exception e){
 			msg.setStatus(0);
 			msg.setErrorTip("");
-			msg.setDataBody("保存菜谱失败");
+			msg.setimformation("保存菜谱失败");
 		}
 		msg.setStatus(1);
 		msg.setErrorTip("");
@@ -66,11 +66,11 @@ public class DishCollocationServiceImp implements DishCollocationService {
 	public Msg setMenuDays(MenuSet menuSet) {
 		try{
 			dishCollocationDao.setMenuDays(menuSet);
-			msg.setDataBody("设置成功");
+			msg.setimformation("设置成功");
 		}catch (Exception e){
 			msg.setStatus(0);
 			msg.setErrorTip("");
-			msg.setDataBody("设置失败");
+			msg.setimformation("设置失败");
 		}
 		msg.setStatus(1);
 		msg.setErrorTip("");
@@ -89,11 +89,11 @@ public class DishCollocationServiceImp implements DishCollocationService {
 				dates.add(calendar.getTime());
 			}
 			Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			msg.setDataBody(gson.toJson(dates));
+			msg.setimformation(gson.toJson(dates));
 		}catch (Exception e){
 			msg.setStatus(0);
 			msg.setErrorTip("");
-			msg.setDataBody("获取失败");
+			msg.setimformation("获取失败");
 		}
 		msg.setStatus(1);
 		msg.setErrorTip("");

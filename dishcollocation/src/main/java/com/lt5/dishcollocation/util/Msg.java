@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 public class Msg {
 	private int status;
 	private String errorTip;
-	private String dataBody;
+	private String imformation;
 
-	public Msg(int status, String errorTip, String dataBody) {
+	public Msg(int status, String errorTip, String imformation) {
 		this.status = status;
 		this.errorTip = errorTip;
-		this.dataBody = dataBody;
+		this.imformation = imformation;
 	}
 
 	public Msg() {
@@ -40,11 +40,11 @@ public class Msg {
 		this.errorTip = errorTip;
 	}
 
-	public String getDataBody() {
-		return dataBody;
+	public String getimformation() {
+		return imformation;
 	}
 
-	public void setDataBody(String dataBody) {
-		this.dataBody = dataBody;
+	public void setimformation(String imformation) {
+		this.imformation = imformation;
 	}
 }
