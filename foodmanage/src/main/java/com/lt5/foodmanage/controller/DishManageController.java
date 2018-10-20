@@ -7,6 +7,9 @@ import com.lt5.foodmanage.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * @program:com.lt5.foodmanage.controller
  * @description:
@@ -32,7 +35,7 @@ public class DishManageController {
 
 	@RequestMapping(method = RequestMethod.GET,value = "/someDish")
 	@ResponseBody
-	public Msg listDish(@RequestParam int storeId,@RequestParam String condition,@RequestParam int pageNum,
+	public Msg listSomeDish(@RequestParam int storeId,@RequestParam String condition,@RequestParam int pageNum,
 	                    @RequestParam int pageSize){
 		msg=dishManageService.listSomeDish(storeId,condition,pageNum,pageSize);
 		return msg;
@@ -52,10 +55,18 @@ public class DishManageController {
 		return msg;
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE,value = "/dish")
+	@RequestMapping(method = RequestMethod.POST,value = "/deleteDish")
 	@ResponseBody
-	public Msg listDish(@RequestBody DishMenu dishMenu){
+	public Msg deleteDish(@RequestBody DishMenu dishMenu){
+		System.out.println(dishMenu.getDishId()+""+dishMenu.getStoreId());
 		msg=dishManageService.deleteDish(dishMenu);
+		return msg;
+	}
+
+	@RequestMapping(method = RequestMethod.POST,value = "/deleteSomeDish")
+	@ResponseBody
+	public Msg deleteSomeDish(@RequestBody ArrayList<DishMenu> dishMenu){
+		msg=dishManageService.deleteSomeDish(dishMenu);
 		return msg;
 	}
 }

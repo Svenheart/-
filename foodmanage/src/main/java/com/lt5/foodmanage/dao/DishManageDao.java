@@ -41,12 +41,18 @@ public interface DishManageDao {
 	 * 更新菜品
 	 */
 	@Select(value = "update dreamweaver.t_cookbook set dish_id=#{newDishId},dish_name=#{dishName},dish_price=#{dishPrice}," +
-			"dish_image=#{dishImage},cuisine=#{cuisine},store_id=#{storeId} where dish_id=#{dishId}")
+			"cuisine=#{cuisine},store_id=#{storeId} where dish_id=#{dishId}")
 	void updateDish(DishMenu dishMenu);
 
 	/**
 	 *删除菜品
 	 */
-	@Select(value = "delete from dreamweaver.t_cookbook where store_id=#{storeId} and dish_id=#{dishId};")
-	void deleteDish(DishMenu dishMenu);
+	@Select(value = "delete from dreamweaver.t_cookbook where (store_id=#{storeId} and dish_id=#{dishId})")
+	void deleteDish(@Param("storeId") int storeId,@Param("dishId") int dishId);
+
+	/**
+	 * 批量删除菜品
+	 */
+	@Select(value = "delete from dreamweaver.t_cookbook where (store_id=#{storeId} and dish_id=#{dishId})")
+	void deleteSomeDish(@Param("storeId") int storeId,@Param("dishId") int dishId);
 }
