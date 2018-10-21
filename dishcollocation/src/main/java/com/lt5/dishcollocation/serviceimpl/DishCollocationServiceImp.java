@@ -1,17 +1,16 @@
 package com.lt5.dishcollocation.serviceimpl;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lt5.dishcollocation.dao.DishCollocationDao;
-import com.lt5.dishcollocation.entity.DateMenu;
-import com.lt5.dishcollocation.entity.MenuSet;
+import com.lt5.dishcollocation.entity.DishMenu;
+import com.lt5.dishcollocation.entity.BookSet;
+import com.lt5.dishcollocation.entity.TypeMenu;
 import com.lt5.dishcollocation.service.DishCollocationService;
 import com.lt5.dishcollocation.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,21 +33,38 @@ public class DishCollocationServiceImp implements DishCollocationService {
 	private Calendar calendar=Calendar.getInstance();
 
 	@Override
-	public Msg addNewMenu(ArrayList<DateMenu> dateMenuArrayList) {
+	public Msg addNewMenu(ArrayList<TypeMenu> dishMenuArrayList,String isSeven) {
 		try{
-			if(dateMenuArrayList.get(0).getIsSevenDay().equals("true")){
+			if(isSeven.equals("true")){
 				for(int i=0;i<7;i++){
-					calendar.setTime(dateMenuArrayList.get(0).getDishDate());
+					calendar.setTime(dishMenuArrayList.get(0).getDishMenus().get(0).getDishDate());
 					calendar.add(Calendar.DATE,i);
-					dateMenuArrayList.get(i).setDishDate(calendar.getTime());
-					for(int j=0;j<dateMenuArrayList.size();j++){
-						dishCollocationDao.addNewMenu(dateMenuArrayList.get(j));
+					dishMenuArrayList.get(0).getDishMenus().get(i).setDishDate(calendar.getTime());
+					for(int j = 0; j< dishMenuArrayList.size(); j++){
+						dishCollocationDao.addNewMenu(dishMenuArrayList.get(0).getDishMenus().get(j));
+					}
+					dishMenuArrayList.get(1).getDishMenus().get(i).setDishDate(calendar.getTime());
+					for(int j = 0; j< dishMenuArrayList.size(); j++){
+						dishCollocationDao.addNewMenu(dishMenuArrayList.get(1).getDishMenus().get(j));
+					}
+					dishMenuArrayList.get(2).getDishMenus().get(i).setDishDate(calendar.getTime());
+					for(int j = 0; j< dishMenuArrayList.size(); j++){
+						dishCollocationDao.addNewMenu(dishMenuArrayList.get(2).getDishMenus().get(j));
 					}
 				}
 			}
 			else {
-				for(int j=0;j<dateMenuArrayList.size();j++){
-					dishCollocationDao.addNewMenu(dateMenuArrayList.get(j));
+				for(int j = 0; j< dishMenuArrayList.size(); j++){
+					dishMenuArrayList.get(0).getDishMenus().get(j).setMealType("早餐");
+					dishCollocationDao.addNewMenu(dishMenuArrayList.get(0).getDishMenus().get(j));
+				}
+				for(int j = 0; j< dishMenuArrayList.size(); j++){
+					dishMenuArrayList.get(0).getDishMenus().get(j).setMealType("午餐");
+					dishCollocationDao.addNewMenu(dishMenuArrayList.get(1).getDishMenus().get(j));
+				}
+				for(int j = 0; j< dishMenuArrayList.size(); j++){
+					dishMenuArrayList.get(0).getDishMenus().get(j).setMealType("晚餐");
+					dishCollocationDao.addNewMenu(dishMenuArrayList.get(2).getDishMenus().get(j));
 				}
 			}
 			msg.setimformation("保存菜谱成功");
@@ -63,9 +79,9 @@ public class DishCollocationServiceImp implements DishCollocationService {
 	}
 
 	@Override
-	public Msg setMenuDays(MenuSet menuSet) {
+	public Msg setMenuDays(BookSet bookSet) {
 		try{
-			dishCollocationDao.setMenuDays(menuSet);
+			dishCollocationDao.setMenuDays(bookSet);
 			msg.setimformation("设置成功");
 		}catch (Exception e){
 			msg.setStatus(0);
@@ -81,10 +97,10 @@ public class DishCollocationServiceImp implements DishCollocationService {
 	public Msg getMenuDate(int storeId) {
 		try{
 			dates=new ArrayList<>();
-			MenuSet menuSet=dishCollocationDao.getMenuDays(storeId);
-			calendar.setTime(menuSet.getSettingTime());
-			dates.add(menuSet.getSettingTime());
-			for(int i=0;i<menuSet.getDays();i++){
+			BookSet bookSet =dishCollocationDao.getMenuDays(storeId);
+			calendar.setTime(bookSet.getSettingTime());
+			dates.add(bookSet.getSettingTime());
+			for(int i = 0; i< bookSet.getDays(); i++){
 				calendar.add(Calendar.DATE,1);
 				dates.add(calendar.getTime());
 			}

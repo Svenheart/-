@@ -14,17 +14,6 @@ public class DishMenu {
 	private String dishImage;
 	private String cuisine;
 	private int storeId;
-	private int newDishId;
-
-	public DishMenu(int dishId, String dishName, int dishPrice, String dishImage, String cuisine, int storeId, int newDishId) {
-		this.dishId = dishId;
-		this.dishName = dishName;
-		this.dishPrice = dishPrice;
-		this.dishImage = dishImage;
-		this.cuisine = cuisine;
-		this.storeId = storeId;
-		this.newDishId = newDishId;
-	}
 
 	public DishMenu(int dishId, String dishName, int dishPrice, String dishImage, String cuisine, int storeId) {
 		this.dishId = dishId;
@@ -48,14 +37,6 @@ public class DishMenu {
 	}
 
 	public DishMenu() {
-	}
-
-	public int getNewDishId() {
-		return newDishId;
-	}
-
-	public void setNewDishId(int newDishId) {
-		this.newDishId = newDishId;
 	}
 
 	public int getDishId() {

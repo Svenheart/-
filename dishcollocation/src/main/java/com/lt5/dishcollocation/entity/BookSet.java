@@ -9,18 +9,18 @@ import java.util.Date;
  * @author:SanCheng
  * @create:2018-10-17
  **/
-public class MenuSet {
+public class BookSet {
 	private int storeId;
 	private int days;
 	private Date settingTime;
 
-	public MenuSet(int storeId, int days, Date settingTime) {
+	public BookSet(int storeId, int days, Date settingTime) {
 		this.storeId = storeId;
 		this.days = days;
 		this.settingTime = settingTime;
 	}
 
-	public MenuSet() {
+	public BookSet() {
 	}
 
 	public int getStoreId() {

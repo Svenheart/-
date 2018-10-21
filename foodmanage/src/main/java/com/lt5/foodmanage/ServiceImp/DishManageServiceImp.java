@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program:com.lt5.foodmanage.ServiceImp
@@ -38,10 +39,8 @@ public class DishManageServiceImp implements DishManageService {
 		Msg msg=new Msg();
 		byte[] b;
 		try {
-			b= Base64Utils.decodeFromString(dishMenu.getDishImage());
-			if(b==null){
-				throw new Exception();
-			}
+			String[] data=dishMenu.getDishImage().split("base64,");
+			b= Base64Utils.decodeFromString(data[1]);
 			FtpUtil ftpUtil=new FtpUtil();
 			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd");
 			String path=simpleDateFormat.format(new Date());
@@ -58,6 +57,7 @@ public class DishManageServiceImp implements DishManageService {
 			msg.setStatus(0);
 			msg.setimformation("添加菜品失败！");
 			msg.setErrorTip("");
+			return msg;
 		}
 		msg.setStatus(1);
 		msg.setErrorTip("");
@@ -65,10 +65,11 @@ public class DishManageServiceImp implements DishManageService {
 	}
 
 	@Override
-	public Msg deleteSomeDish(ArrayList<DishMenu> dishMenu) {
+	public Msg deleteSomeDish(List<DishMenu> dishMenu) {
 		Msg msg=new Msg();
 		try{
 			for(int i=0;i<dishMenu.size();i++) {
+				System.out.println(dishMenu.get(i).getStoreId()+"   "+dishMenu.get(i).getDishId());
 				dishManageDao.deleteSomeDish(dishMenu.get(i).getStoreId(),dishMenu.get(i).getDishId());
 			}
 			msg.setimformation("批量删除菜品成功！");
@@ -147,10 +148,25 @@ public class DishManageServiceImp implements DishManageService {
 	@Override
 	public Msg updateDish(DishMenu dishMenu) {
 		Msg msg=new Msg();
+		byte[] b;
 		try{
-			dishManageDao.updateDish(dishMenu);
+			String[] data=dishMenu.getDishImage().split("base64,");
+			b = Base64Utils.decodeFromString(data[1]);
+			FtpUtil ftpUtil = new FtpUtil();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+			String path = simpleDateFormat.format(new Date());
+			if (dishMenu.getStoreId() == 0) {
+				System.out.println(dishMenu.getStoreId());
+				throw new Exception();
+			}
+			String filename = String.valueOf(System.currentTimeMillis()) + dishMenu.getStoreId();
+			String tip = ftpUtil.uploadFile(b, path, filename);
+			dishMenu.setDishImage(tip);
+			dishManageDao.updateDish(dishMenu.getDishName(),dishMenu.getDishPrice(),dishMenu.getCuisine(),
+					dishMenu.getStoreId(),dishMenu.getDishImage(),dishMenu.getDishId());
 			msg.setimformation("更新菜品成功！");
 		}catch (Exception e){
+			e.printStackTrace();
 			msg.setStatus(0);
 			msg.setimformation("更新菜品失败！");
 			msg.setErrorTip("");

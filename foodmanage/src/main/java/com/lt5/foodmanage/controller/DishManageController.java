@@ -1,14 +1,16 @@
 package com.lt5.foodmanage.controller;
 
-import com.github.pagehelper.PageHelper;
+import com.alibaba.fastjson.JSON;
 import com.lt5.foodmanage.entity.DishMenu;
 import com.lt5.foodmanage.service.DishManageService;
 import com.lt5.foodmanage.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @program:com.lt5.foodmanage.controller
@@ -48,25 +50,26 @@ public class DishManageController {
 		return msg;
 	}
 
-	@RequestMapping(method = RequestMethod.PUT,value = "/dish")
+	@RequestMapping(method = RequestMethod.POST,value = "/updateDish")
 	@ResponseBody
-	public Msg updateDish(@RequestBody DishMenu dishMenu){
-		msg=dishManageService.updateDish(dishMenu);
+	public Msg updateDish(@RequestParam String dishMenu){
+		DishMenu dishMenu1=JSON.parseObject(dishMenu,DishMenu.class);
+		msg=dishManageService.updateDish(dishMenu1);
 		return msg;
 	}
 
 	@RequestMapping(method = RequestMethod.POST,value = "/deleteDish")
 	@ResponseBody
 	public Msg deleteDish(@RequestBody DishMenu dishMenu){
-		System.out.println(dishMenu.getDishId()+""+dishMenu.getStoreId());
 		msg=dishManageService.deleteDish(dishMenu);
 		return msg;
 	}
 
 	@RequestMapping(method = RequestMethod.POST,value = "/deleteSomeDish")
 	@ResponseBody
-	public Msg deleteSomeDish(@RequestBody ArrayList<DishMenu> dishMenu){
-		msg=dishManageService.deleteSomeDish(dishMenu);
+	public Msg deleteSomeDish(@RequestParam String dishMenus){
+		List<DishMenu> dishMenuList=JSON.parseArray(dishMenus,DishMenu.class);
+		msg=dishManageService.deleteSomeDish(dishMenuList);
 		return msg;
 	}
 }

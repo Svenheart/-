@@ -1,13 +1,16 @@
 package com.lt5.dishcollocation.controller;
 
-import com.lt5.dishcollocation.entity.DateMenu;
-import com.lt5.dishcollocation.entity.MenuSet;
+import com.alibaba.fastjson.JSON;
+import com.lt5.dishcollocation.entity.DishMenu;
+import com.lt5.dishcollocation.entity.BookSet;
+import com.lt5.dishcollocation.entity.TypeMenu;
 import com.lt5.dishcollocation.service.DishCollocationService;
 import com.lt5.dishcollocation.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program:com.lt5.dishcollocation.controller
@@ -22,15 +25,16 @@ public class DishCollocationController {
 	@Autowired private DishCollocationService dishCollocationService;
 	@RequestMapping(method = RequestMethod.POST,value = "/newMenu")
 	@ResponseBody
-	public Msg addNewMenu(@RequestBody ArrayList<DateMenu> dateMenuArrayList){
-		msg=dishCollocationService.addNewMenu(dateMenuArrayList);
+	public Msg addNewMenu(@RequestParam String typeMenus,@RequestParam("isSeven") String isSeven){
+		List<TypeMenu> typeMenuList= JSON.parseArray(typeMenus,TypeMenu.class);
+		System.out.println(typeMenuList.toString());
 		return msg;
 	}
 
 	@RequestMapping(method = RequestMethod.POST,value = "/menuDays")
 	@ResponseBody
-	public Msg setMenuDays(@RequestBody MenuSet menuSet){
-		msg=dishCollocationService.setMenuDays(menuSet);
+	public Msg setMenuDays(@RequestBody BookSet bookSet){
+		msg=dishCollocationService.setMenuDays(bookSet);
 		return msg;
 	}
 

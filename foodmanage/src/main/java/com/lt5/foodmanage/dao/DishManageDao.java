@@ -40,9 +40,10 @@ public interface DishManageDao {
 	/**
 	 * 更新菜品
 	 */
-	@Select(value = "update dreamweaver.t_cookbook set dish_id=#{newDishId},dish_name=#{dishName},dish_price=#{dishPrice}," +
-			"cuisine=#{cuisine},store_id=#{storeId} where dish_id=#{dishId}")
-	void updateDish(DishMenu dishMenu);
+	@Select(value = "update dreamweaver.t_cookbook set dish_name=#{dishName},dish_price=#{dishPrice}," +
+			"cuisine=#{cuisine},store_id=#{storeId},dish_image=#{dishImage} where dish_id=#{dishId}")
+	void updateDish(@Param("dishName") String dishName,@Param("dishPrice") int dishPrice,@Param("cuisine") String cuisine,
+	                @Param("storeId") int storeId,@Param("dishImage") String dishImage,@Param("dishId") int dishId);
 
 	/**
 	 *删除菜品
